@@ -658,6 +658,7 @@ class RPCRequestHandler(SocketServer.BaseRequestHandler):
         proc = self.unpacker.unpack_uint()
 
         methname = 'handle_' + repr(proc)
+        logger.info('In rpc.py  :: handle_call # After handle_')
         try:
             meth = getattr(self, methname)
         except AttributeError:
