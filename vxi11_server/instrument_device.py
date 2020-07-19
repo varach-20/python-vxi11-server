@@ -54,6 +54,7 @@ class InstrumentDevice(object):
     def device_write(self, opaque_data): # 11
         "The device_write RPC is used to write data to the specified device"
         error = vxi11.ERR_NO_ERROR
+        logger.debug(' In instrument_device::InstrumentDevice # DEVICE_WRITE %s', opaque_data)
 
         if False:
             error = vxi11.ERR_IO_TIMEOUT
@@ -236,8 +237,8 @@ class DefaultInstrumentDevice(InstrumentDevice):
     
     def device_write(self, opaque_data):
         error = vxi11.ERR_NO_ERROR
-
-        if opaque_data == '*IDN?':
+        logger.debug(' In instrument_device::DefaultInstrumentDevice # DEVICE_WRITE %s', opaque_data)
+        if opaque_data == '*IDN?' or opaque_data == '*IDN?\r\n':
             mfg, model, sn, fw = self.idn
             self.result = "{} {} {} {}".format(mfg, model, sn, fw)
         elif opaque_data == '*DEVICE_LIST?':
